@@ -31,3 +31,5 @@ build
 dist
 
 bower_components
+
+manifest.json

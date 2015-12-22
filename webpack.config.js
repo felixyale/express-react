@@ -12,14 +12,14 @@ var config = {
   },
   context: __dirname,
   entry: {
-    app: env === 'production' ? ['./assets/main.js'] : ['webpack/hot/dev-server', './assets/main.js'],
+    app: ['./src/app.js'],
     vendor: ["jquery", "react", "react-dom", "react-router", "normalize.css", "font-awesome.css", "createBrowserHistory"]
   },
   output: {
-    publicPath: env === 'production' ? '/' : 'http://localhost:8080/',
-    path: path.resolve(__dirname, env === 'production' ? './dist/' : './dist'),
-    filename: env === 'production' ? "[name]-[chunkhash].js" : "[name].js",
-    chunkFilename: env === 'production' ? "[name]-[chunkhash].js" : "[name].js"
+    publicPath: (env === 'production' || env === 'staging') ? '/esf/react/' : 'http://localhost:8080/esf/react/',
+    path: path.resolve(__dirname, './dist/static.esf.fangdd.com/esf/react'),
+    filename: (env === 'production' || env === 'staging') ? "[name]-[chunkhash].js" : "[name].js",
+    chunkFilename: (env === 'production' || env === 'staging') ? "[name]-[chunkhash].js" : "[name].js"
   },
   resolve: {
     alias: {
@@ -44,27 +44,23 @@ var config = {
     ]
   },
   postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ],
-  devServer: {
-    hot: true
-  },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({"name": "vendor", "filename": null})
   ]
 };
 
+// generate manifest.json
 if (env == 'production' || env == 'staging') {
   config.plugins.push(function() {
     this.plugin("done", function(stats) {
       require("fs").writeFileSync(
-        path.join(__dirname, "dist", "stats.json"),
-        JSON.stringify(stats.toJson())
+        path.join(__dirname, "manifest.json"),
+        JSON.stringify(stats.toJson().assetsByChunkName)
       );
     });
   });
 }
 
-//config.addVendor('react', path.resolve(bower_dir, 'react/dist/react.min.js'));
-//config.addVendor('react-dom', path.resolve(node_modules_dir, 'react/lib/ReactDOM'));
 config.addVendor('jquery', path.resolve(bower_dir, 'jquery/dist/jquery.min.js'));
 
 module.exports = config;
