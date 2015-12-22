@@ -2,17 +2,14 @@ doctype html
 html
   head
     title!= title
+    meta(name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=0")
   body
-    h1!= message
-    div
-      a(href='#') Home
-      a(href='#admin') Admin
     #app
     script(
       type="text/javascript"
-      src="/vendor-3e8b1bf87296db01381f.js"
+      src="http://localhost:8080/vendor.js"
     )
     script(
       type="text/javascript"
-      src="/app-4559292ebde25ab17195.js"
+      src="http://localhost:8080/app.js"
     )

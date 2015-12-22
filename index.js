@@ -7,9 +7,18 @@ app.use(express.static('dist'));
 app.set('views', './views');
 app.set('view engine', 'jade');
 
-app.get('/', function (req, res) {
+if (env != 'production' && env != 'staging') {
+  app.locals.pretty = true;
+}
+
+// app.get('/', function (req, res) {
+//   res.render('index', { title: 'Hey', message: 'Hello there!'});
+// });
+
+app.get('*', function (req, res){
   res.render('index', { title: 'Hey', message: 'Hello there!'});
-});
+})
+
 
 var server = app.listen(3000, function () {
   var host = server.address().address;

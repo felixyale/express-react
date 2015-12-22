@@ -1,0 +1,140 @@
+.artboard {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 445px;
+  box-sizing: border-box;
+  background-color: #282d36;
+  display: flex;
+
+  .tabs {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    list-style-type: none;
+    margin: 0;
+    padding: 15px 15px 0;
+    background-color: #333333;
+    color: #00D1E5;
+    box-sizing: border-box;
+
+    .fa {
+      font-size: 40px;
+    }
+
+    .item {
+      display: inline-block;
+      text-align: center;
+      color: #B3CFD2;
+      padding: 10px;
+      margin: 0 10px 0 0;
+      border-radius: 10px 10px 0 0;
+      cursor: pointer;
+      width: 80px;
+      height: 80px;
+      box-sizing: border-box;
+
+      .title {
+        display: block;
+        font-size: 14px;
+      }
+
+      &.active {
+        background-color: #00D1E5;
+        color: #333333;
+        box-shadow: 2px -1px 2px 0px #2B2929;
+        font-weight: bolder;
+
+        .title,
+        .fa {
+          text-shadow: 1px 1px 1px #fff;
+        }
+      }
+    }
+  }
+
+  .tab-body {
+    position: absolute;
+    top: 95px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #00D1E5;
+  }
+
+  .tab-body-sub {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    left: 110px;
+    bottom: 15px;
+    background-color: #ffffff;
+    border-radius: 5px;
+  }
+
+  .tabs-sys {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    list-style-type: none;
+    width: 95px;
+    margin: 0;
+    padding: 15px 0 15px 15px;
+    color: #ffffff;
+    box-sizing: border-box;
+    
+    .fa {
+      font-size: 30px;
+    }
+
+    .item {
+      color: #ffffff;
+      cursor: pointer;
+      box-sizing: border-box;
+      border-bottom: 1px solid #36e4f1;
+      position: relative;
+      line-height: 3em;
+      
+      &::before {
+        content: ' ';
+        width: 100%;
+        position: absolute;
+        bottom: 1px;
+        height: 1px;
+        line-height: 1px;
+        border-bottom: 1px solid #00a6b7;
+      }
+      
+
+      .title {
+        display: block;
+        font-size: 14px;
+      }
+
+      &.active {
+        background-color: #00D1E5;
+        color: #333333;
+        font-weight: bolder;
+        
+        &::after {
+          content: '❯';
+          position: absolute;
+          top: 0;
+          right: 0;
+          font-weight: bolder;
+        }
+      }
+    }
+  }
+}
