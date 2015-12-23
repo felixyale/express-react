@@ -1,5 +1,6 @@
 import { Router, Route, IndexRoute, Redirect, Link, browserHistory } from 'react-router'
 import React from 'react'
+import Template from '../template/Template'
 
 export default class SysTpl extends React.Component {
   constructor() {
@@ -7,7 +8,7 @@ export default class SysTpl extends React.Component {
     this.state = {
       activeId: 0,
       tabs: [
-        {name: '文字段落', id: 0, children: (<div>1234</div>)},
+        {name: '文字段落', id: 0, children: (<Template type="artical" />)},
         {name: '图片', id: 1},
         {name: '房源', id: 2}
       ]

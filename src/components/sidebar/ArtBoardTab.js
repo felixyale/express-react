@@ -9,8 +9,8 @@ export default class ArtBoardTab extends React.Component {
     this.state = {
       activeId: 0,
       tabs: [
-        {name: '系统模版', id: 0, children: <SysTpl />},
-        {name: '草稿箱', id: 1}
+        {name: '系统模版', id: 0, icon: 'fa fa-rocket', children: <SysTpl />},
+        {name: '草稿箱', id: 1, icon: 'fa fa-archive'}
       ]
     }
 
@@ -38,18 +38,18 @@ export default class ArtBoardTab extends React.Component {
 
       return (
         <li key={tab.id} className={className} onClick={this.handleTabClick(tab)} >
-          <i className="fa fa-rocket"></i><span className="title">{tab.name}</span>
+          <i className={tab.icon}></i><span className="title">{tab.name}</span>
         </li>
       )
     }
 
     return (
-      <div>
+      <aside className="sidebar">
         <ul className="tabs">{this.state.tabs.map(createItem)}</ul>
         <div className="tab-body">
-          {this.children}
+        {this.children}
         </div>
-      </div>
+      </aside>
     )
   }
 }

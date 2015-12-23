@@ -1,3 +1,6 @@
+@base: #333333;
+@white: #ffffff;
+
 @font-face {
   font-family: 'test';
   src: url('./font.woff') format('woff');
@@ -6,13 +9,18 @@
 body {
   font-family: 'test';
   background-image: url(./bg.png);
-  background-repeat: no-repeat;
   background-color: #E0E0DF;
+  color: @base;
+}
+
+.header {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: @white;
+  background-image: linear-gradient(to right, #FFFFFF, #DEDEDE);
 }
 
 .navbar {
   min-height: 50px;
-  background-color: rgb(190, 232, 245);
   padding: 0 15px;
 
   .nav {
@@ -24,6 +32,11 @@ body {
       padding: 0 .5em 0 0;
       display: inline-block;
       line-height: 50px;
+      
+      a {
+        color: @base;
+        text-decoration: none;
+      }
     }
   }
 }

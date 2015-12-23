@@ -13,7 +13,7 @@ var config = {
   context: __dirname,
   entry: {
     app: ['./src/app.js'],
-    vendor: ["jquery", "react", "react-dom", "react-router", "normalize.css", "font-awesome.css", "createBrowserHistory"]
+    vendor: ["jquery", "react", "react-dom", "react-router", "normalize.css", "font-awesome.css", "createBrowserHistory", "underscore"]
   },
   output: {
     publicPath: (env === 'production' || env === 'staging') ? '/esf/react/' : 'http://localhost:8080/esf/react/',
