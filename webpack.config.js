@@ -13,7 +13,11 @@ var config = {
   context: __dirname,
   entry: {
     app: ['./src/app.js'],
-    vendor: ["jquery", "react", "react-dom", "react-router", "normalize.css", "font-awesome.css", "createBrowserHistory", "underscore"]
+    vendor: [
+      "jquery", "react", "react-dom", "react-router",
+      "normalize.css", "font-awesome.css", "createBrowserHistory",
+      "react-dnd", "react-dnd-html5-backend"
+    ]
   },
   output: {
     publicPath: (env === 'production' || env === 'staging') ? '/esf/react/' : 'http://localhost:8080/esf/react/',
@@ -34,9 +38,9 @@ var config = {
       {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel?presets[]=react,presets[]=es2015'
+        loader: 'babel'
       },
-      { test: /\.css$/, loader: 'style!css' },
+      { test: /\.css$/, loader: 'style!css!postcss' },
       { test: /\.less$/, loader: 'style!css!postcss!less' },
       { test: /\.(jpg|jpeg|gif|png)$/i, loader: 'file' },
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
@@ -45,7 +49,7 @@ var config = {
   },
   postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ],
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({"name": "vendor", "filename": null})
+    new webpack.optimize.CommonsChunkPlugin({"name": "vendor"})
   ]
 };
 
