@@ -1,16 +1,16 @@
 import { Router, Route, IndexRoute, Redirect, Link, browserHistory } from 'react-router'
 import React from 'react'
 
-import SysTpl from './SysTpl'
+import SysTpl from './artboardtabs/SysTpl'
 
-export default class ArtBoardTab extends React.Component {
+export default class ArtBoardTabs extends React.Component {
   constructor() {
     super();
     this.state = {
       activeId: 0,
       tabs: [
-        {name: '系统模版', id: 0, icon: 'fa fa-rocket', children: <SysTpl />},
-        {name: '草稿箱', id: 1, icon: 'fa fa-archive'}
+        {name: '系统模版', id: 0, icon: 'fa-paper-plane', children: <SysTpl />},
+        {name: '草稿箱', id: 1, icon: 'fa-archive'}
       ]
     }
 
@@ -38,7 +38,7 @@ export default class ArtBoardTab extends React.Component {
 
       return (
         <li key={tab.id} className={className} onClick={this.handleTabClick(tab)} >
-          <i className={tab.icon}></i><span className="title">{tab.name}</span>
+          <i className={'fa ' + tab.icon}></i><span className="title">{tab.name}</span>
         </li>
       )
     }

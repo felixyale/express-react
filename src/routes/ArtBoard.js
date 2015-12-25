@@ -1,17 +1,19 @@
-require("./ArtBoard.less");
+require("../components/artboard/ArtBoard.less");
 
 import { Router, Route, IndexRoute, Redirect, Link, browserHistory } from 'react-router'
 import React from 'react'
 
-import ArtBoardTab from '../components/sidebar/ArtBoardTab'
-import Board from '../components/board/Board'
+import ArtBoardTabs from '../components/artboard/ArtBoardTabs'
+import Board from '../components/artboard/Board'
+import ToolBar from '../components/artboard/ToolBar'
 
 export class ArtBoard extends React.Component {
   render() {
     return (
       <div className="artboard">
-        <ArtBoardTab />
+        <ArtBoardTabs />
         <Board />
+        <ToolBar />
       </div>
     )
   }

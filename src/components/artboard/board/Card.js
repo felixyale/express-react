@@ -4,10 +4,6 @@ import ItemTypes from './ItemTypes';
 import { DragSource, DropTarget } from 'react-dnd';
 
 const style = {
-  border: '1px dashed gray',
-  padding: '0.5rem 1rem',
-  marginBottom: '.5rem',
-  cursor: 'move'
 };
 
 const cardSource = {
@@ -89,9 +85,10 @@ export default class Card extends Component {
     const opacity = isDragging ? 0 : 1;
 
     return connectDragSource(connectDropTarget(
-      <div style={{ ...style, opacity }}>
-        {text + this.props.id}
+      <div className="drag-source" style={{ ...style, opacity }}>
+        <div className="tpl-container">
         {this.props.tpl}
+        </div>
       </div>
     ));
   }

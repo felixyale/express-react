@@ -1,5 +1,3 @@
-require('./template.less')
-
 import { Router, Route, IndexRoute, Redirect, Link, browserHistory } from 'react-router'
 import React from 'react'
 import TplArtical from './TplArtical'

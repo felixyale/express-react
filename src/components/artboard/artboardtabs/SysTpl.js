@@ -1,6 +1,6 @@
 import { Router, Route, IndexRoute, Redirect, Link, browserHistory } from 'react-router'
 import React from 'react'
-import Template from '../template/Template'
+import Template from './systpl/Template'
 
 export default class SysTpl extends React.Component {
   constructor() {
