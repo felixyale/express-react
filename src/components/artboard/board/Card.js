@@ -69,6 +69,11 @@ const cardTarget = {
   isDragging: monitor.isDragging()
 }))
 export default class Card extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.handleRemove = this.handleRemove.bind(this);
+  }
   static propTypes = {
     connectDragSource: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
@@ -79,18 +84,23 @@ export default class Card extends Component {
     //onDrop: PropTypes.func.isRequired
   };
 
+  handleRemove() {
+    this.props.handleRemove();
+  }
+
   render() {
     const { text, isDragging, connectDragSource, connectDropTarget } = this.props;
     const opacity = isDragging ? 0 : 1;
 
     return connectDragSource(connectDropTarget(
-      <div className="drag-source">
-        <div className="tools-left"><i className="fa fa-trash-o"></i></div>
-        <div className="tpl-container" style={{ ...style, opacity }}>
-        {this.props.tpl}
+      <div className="tpl-container">
+        <div className="tools-left"><i className="fa fa-trash-o" onClick={this.handleRemove}></i></div>
+        <div className="drag-source">
+          <div style={{ ...style, opacity }}>
+          {this.props.tpl}
+          </div>
         </div>
       </div>
-      
     ));
   }
 }

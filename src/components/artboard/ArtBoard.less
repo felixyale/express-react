@@ -165,16 +165,38 @@
   }
 
   .drag-source {
-    border: 1px dashed gray;
     margin-bottom: -1px;
     cursor: move;
 
     &:last-child {
       margin-bottom: 0;
     }
+  }
+
+  .tools-left {
+    position: absolute;
+    top: 1px;
+    width: 1rem;
+    text-align: center;
+    left: 0;
+    display: none;
     
-    .tools-left {
-      margin-left: -1rem;
+    .fa {
+      cursor: pointer;
+    }
+  }
+  
+  .tpl-container {
+    position: relative;
+    margin-bottom: -1px;
+    border: 1px dashed gray;
+    
+    &:first-child {
+      border: none;
+    }
+
+    &:hover .tools-left {
+      display: block;
     }
   }
 
@@ -265,6 +287,10 @@
 
   img {
     max-width: 100%;
+  }
+  
+  .img-block {
+    display: block;
   }
 }
 

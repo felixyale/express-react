@@ -87,5 +87,5 @@ export var TextTpl = [
 ];
 
 export var ImageTpl = [
-  `<img src="http://localhost:8080/esf/react/17a2a5262b6d7cfe05019dd5f1f3a4b3.png"/>`
+  `<img className="img-block" src="http://localhost:8080/esf/react/17a2a5262b6d7cfe05019dd5f1f3a4b3.png"/>`
 ];

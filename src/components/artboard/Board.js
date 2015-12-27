@@ -47,6 +47,8 @@ export default class Board extends React.Component {
     this.handleTitleChange = this.handleTitleChange.bind(this);
     
     this.handledDescriptionChange = this.handledDescriptionChange.bind(this);
+    
+    this.handleRemove = this.handleRemove.bind(this);
   }
 
   handleTplChange(value) {
@@ -73,6 +75,34 @@ export default class Board extends React.Component {
         ]
       }
     }));
+  }
+
+  handleRemove(id) {
+    return () => {
+      var index = -1;
+      this.state.items.forEach((item, i) => {
+        if (item['id'] == id) {
+          index = i;
+          return false;
+        }
+      })
+      if (index > -1) {
+          this.state.items.splice(index, 1);
+      }
+      
+      index = -1;
+      this.props.tplItems.forEach((item, i) => {
+        if (item['id'] == id) {
+          index = i;
+          return false;
+        }
+      });
+      if (index > -1) {
+          this.props.tplItems.splice(index, 1);
+      }
+
+      this.setState(this.state);
+    }
   }
 
   render() {
@@ -112,13 +142,16 @@ export default class Board extends React.Component {
           </div>
         </div>
         <div className="h5-container">
-          <div style={style}>请在左边添加模版</div>
+          <div className="tpl-container" style={style}>
+              <div>请在左边添加模版</div>
+          </div>
           {this.state.items.map((item, i) => {
             return (
               <Card
                 key={item.id}
                 index={i}
                 moveCard={this.moveCard}
+                handleRemove={this.handleRemove(item.id)}
                 tpl={<BoardTemplate data={item} handlechange={this.handleTplChange} />} />
             );
           })}
