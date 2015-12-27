@@ -6,15 +6,21 @@ import SysTpl from './artboardtabs/SysTpl'
 export default class ArtBoardTabs extends React.Component {
   constructor() {
     super();
+    this.addTpl = this.addTpl.bind(this);
+
     this.state = {
       activeId: 0,
       tabs: [
-        {name: '系统模版', id: 0, icon: 'fa-paper-plane', children: <SysTpl />},
+        {name: '系统模版', id: 0, icon: 'fa-paper-plane', children: <SysTpl addTpl={this.addTpl} />},
         {name: '草稿箱', id: 1, icon: 'fa-archive'}
       ]
     }
 
     this.handleTabClick = this.handleTabClick.bind(this);
+  }
+  
+  addTpl(html) {
+    this.props.addTpl(html);
   }
 
   handleTabClick(tab) {

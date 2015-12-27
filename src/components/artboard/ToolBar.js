@@ -14,7 +14,7 @@ export default class ToolBar extends React.Component {
       <div className="toolbar">
         <button type="button" className="btn btn-tool">保存</button>
         <button type="button" className="btn btn-tool">预览</button>
-        <button type="button" className="btn btn-tool">保存</button>
+        <button type="button" className="btn btn-tool">发布</button>
       </div>
     )
   }

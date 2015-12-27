@@ -9,7 +9,6 @@ const style = {
 const cardSource = {
   beginDrag(props) {
     return {
-      id: props.id,
       index: props.index
     };
   }
@@ -73,11 +72,11 @@ export default class Card extends Component {
   static propTypes = {
     connectDragSource: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
-    index: PropTypes.number.isRequired,
+    //index: PropTypes.number.isRequired,
     isDragging: PropTypes.bool.isRequired,
-    id: PropTypes.any.isRequired,
-    text: PropTypes.string.isRequired,
-    moveCard: PropTypes.func.isRequired
+    //id: PropTypes.any.isRequired,
+    //moveCard: PropTypes.func.isRequired,
+    //onDrop: PropTypes.func.isRequired
   };
 
   render() {
@@ -85,11 +84,13 @@ export default class Card extends Component {
     const opacity = isDragging ? 0 : 1;
 
     return connectDragSource(connectDropTarget(
-      <div className="drag-source" style={{ ...style, opacity }}>
-        <div className="tpl-container">
+      <div className="drag-source">
+        <div className="tools-left"><i className="fa fa-trash-o"></i></div>
+        <div className="tpl-container" style={{ ...style, opacity }}>
         {this.props.tpl}
         </div>
       </div>
+      
     ));
   }
 }

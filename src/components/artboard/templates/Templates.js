@@ -34,7 +34,6 @@ export var TextTpl = [
           font-style: normal;
           color: rgb(255, 255, 255);
           background-color: rgba(255, 255, 255, 0.2);
-          outline: #373b47 dotted 1px;
           box-sizing: border-box;"
           contenteditable="true">
             <div>请输入标题</div>
@@ -72,8 +71,21 @@ export var TextTpl = [
     </div>
   </div>
   `,
+  `
+  <h2 style="font-size: 1em;
+    font-family: inherit;
+    font-style: normal;
+    font-weight: inherit;
+    text-align: inherit;
+    text-decoration: inherit;
+    color: inherit;"
+    contenteditable="true">标题</h2>
+  `,
+  `
+  <p contenteditable="true" style="line-height: 1.5rem;">文本内容</p>
+  `
+];
 
-  `
-    <div>abcd</div>
-  `
+export var ImageTpl = [
+  `<img src="http://localhost:8080/esf/react/17a2a5262b6d7cfe05019dd5f1f3a4b3.png"/>`
 ];
