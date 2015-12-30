@@ -3,18 +3,16 @@ import React from 'react'
 import ContentEditable from 'react-contenteditable'
 import update from 'react/lib/update';
 import Card from './board/Card';
+import Modal from '../ui/Modal';
 
 class BoardTemplate extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = props.data;
+  constructor(...args) {
+    super(...args);
 
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(evt) {
-    this.props.handlechange();
-    //this.setState({html: evt.target.value});
     this.props.data.html = evt.target.value;
   }
 
@@ -22,7 +20,7 @@ class BoardTemplate extends React.Component {
     return (
       <ContentEditable
         onChange={this.handleChange}
-        html={this.state.html}
+        html={this.props.data.html}
         disabled={true}/>
     )
   }
@@ -35,24 +33,22 @@ export default class Board extends React.Component {
     this.state = {
       title: '',
       description: '',
-      items: this.props.tplItems
-    }
+      wxLogo: '',
+      items: this.props.tplItems,
+      activeTpl: {},
+      activeTplLink: '',
+      modal: false
+    };
 
     this.moveCard = this.moveCard.bind(this);
-
     this._state = Object.assign({}, this.state);
-
-    this.handleTplChange = this.handleTplChange.bind(this);
-    
     this.handleTitleChange = this.handleTitleChange.bind(this);
-    
     this.handledDescriptionChange = this.handledDescriptionChange.bind(this);
-    
     this.handleRemove = this.handleRemove.bind(this);
-  }
-
-  handleTplChange(value) {
-    console.log('handle change', this._state);
+    this.handleLink = this.handleLink.bind(this);
+    this.hideModal = this.hideModal.bind(this);
+    this.handleOk = this.handleOk.bind(this);
+    this.handleLinkChange = this.handleLinkChange.bind(this);
   }
 
   handleTitleChange(e) {
@@ -75,6 +71,11 @@ export default class Board extends React.Component {
         ]
       }
     }));
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log('update')
+    this.props.saveState();
   }
 
   handleRemove(id) {
@@ -105,6 +106,36 @@ export default class Board extends React.Component {
     }
   }
 
+  handleLink(item) {
+    return () => {
+      this.setState({
+        activeTpl: item,
+        activeTplLink: item.link,
+        modal: true
+      });
+    }
+  }
+
+  handleLinkChange(e) {
+    this.setState({
+      activeTplLink: e.target.value
+    });
+  }
+
+  hideModal() {
+    this.setState({
+      modal: false
+    });
+  }
+
+  handleOk() {
+    if (this.state.activeTpl) {
+      this.state.activeTpl.link = this.state.activeTplLink;
+      this.setState(this.state);
+      this.hideModal();
+    }
+  }
+
   render() {
     // add new template form menu
     if (this.props.tplItems.length > this.state.items.length) {
@@ -114,7 +145,7 @@ export default class Board extends React.Component {
         }
       })
     }
-    
+
     var style = {
       display: this.state.items.length ? 'none' : 'block',
       textAlign: 'center'
@@ -122,6 +153,19 @@ export default class Board extends React.Component {
 
     return (
       <div className="board">
+        <Modal
+          data={{title: '超链接'}}
+          show={this.state.modal}
+          onHide={this.hideModal}
+          onOk={this.handleOk} >
+          <input
+            className="form-control"
+            type="text"
+            value={this.state.activeTplLink}
+            onChange={this.handleLinkChange}
+            placeholder="请填写链接" />
+        </Modal>
+
         <div className="title-container">
           <figure className="figure">
             <img data-src="..." className="figure-img img-fluid img-rounded" alt=""/>
@@ -141,6 +185,7 @@ export default class Board extends React.Component {
               onChange={this.handledDescriptionChange} />
           </div>
         </div>
+
         <div className="h5-container">
           <div className="tpl-container" style={style}>
               <div>请在左边添加模版</div>
@@ -152,7 +197,10 @@ export default class Board extends React.Component {
                 index={i}
                 moveCard={this.moveCard}
                 handleRemove={this.handleRemove(item.id)}
-                tpl={<BoardTemplate data={item} handlechange={this.handleTplChange} />} />
+                handleLink={this.handleLink(item)}
+                config={item.config} >
+                <BoardTemplate data={item} />
+              </Card>
             );
           })}
         </div>

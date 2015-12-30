@@ -71,8 +71,11 @@ const cardTarget = {
 export default class Card extends Component {
   constructor(props) {
     super(props);
-    
+    this.state = {
+      config: props.config
+    }
     this.handleRemove = this.handleRemove.bind(this);
+    this.handleLink = this.handleLink.bind(this);
   }
   static propTypes = {
     connectDragSource: PropTypes.func.isRequired,
@@ -87,17 +90,32 @@ export default class Card extends Component {
   handleRemove() {
     this.props.handleRemove();
   }
+  
+  handleLink() {
+    this.props.handleLink();
+  }
+  
+  handleClick(e) {
+    if (e.target.tagName == 'A') {
+      e.preventDefault();
+    }
+  }
 
   render() {
     const { text, isDragging, connectDragSource, connectDropTarget } = this.props;
     const opacity = isDragging ? 0 : 1;
 
+    var toolsLinkStyle = {
+      display: this.state.config.linkAble ? 'block' : 'none'
+    };
+
     return connectDragSource(connectDropTarget(
-      <div className="tpl-container">
+      <div className="tpl-container" onClick={this.handleClick}>
         <div className="tools-left"><i className="fa fa-trash-o" onClick={this.handleRemove}></i></div>
+        <div className="tools-right"><i className="fa fa-link" style={toolsLinkStyle} onClick={this.handleLink}></i></div>
         <div className="drag-source">
           <div style={{ ...style, opacity }}>
-          {this.props.tpl}
+          {this.props.children}
           </div>
         </div>
       </div>

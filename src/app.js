@@ -48,6 +48,7 @@ ReactDom.render((
       {/* Show the dashboard at / */}
       <IndexRoute component={Dashboard} />
       <Route path="artboard" component={ArtBoard} />
+      <Route path="artboard/:id" component={ArtBoard} />
       {/*
       <Route path="about" component={About} />
       <Route path="inbox" component={Inbox}>

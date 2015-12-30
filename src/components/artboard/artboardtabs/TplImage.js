@@ -21,10 +21,10 @@ export default class TplImage extends React.Component {
   }
 
   render() {
-    let createItem = (html, i) => {
+    let createItem = (item, i) => {
       return (
         <div className="tpl-item" key={i} onClick={this.handleSelect(i)}>
-          <div className="tpl-container" dangerouslySetInnerHTML={{__html: html}} />
+          <div className="tpl-container" dangerouslySetInnerHTML={{__html: item.html}} />
         </div>
       )
     }

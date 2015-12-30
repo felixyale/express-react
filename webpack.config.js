@@ -1,6 +1,8 @@
 var webpack = require('webpack');
 var path = require('path');
 var autoprefixer = require('autoprefixer');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 var bower_dir = path.join(__dirname, 'bower_components');
 var node_modules_dir = path.join(__dirname, 'node_modules');
 var env = process.env.NODE_ENV || 'development';
@@ -14,9 +16,8 @@ var config = {
   entry: {
     app: ['./src/app.js'],
     vendor: [
-      "jquery", "react", "react-dom", "react-router",
-      "normalize.css", "font-awesome.css", "createBrowserHistory",
-      "react-dnd", "react-dnd-html5-backend"
+      "jquery", "react", "react-dom", "react-router", "createBrowserHistory", "normalize.css",
+      "react-dnd", "react-dnd-html5-backend", "font-awesome.css"
     ]
   },
   output: {
@@ -34,14 +35,17 @@ var config = {
   },
   module: {
     noParse: [],
-    loaders: [
-      {
+    loaders: [{
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel'
+      }, {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract("style", "css!postcss")
+      }, {
+        test: /\.less$/,
+        loader: ExtractTextPlugin.extract("style", "css!postcss!less")
       },
-      { test: /\.css$/, loader: 'style!css!postcss' },
-      { test: /\.less$/, loader: 'style!css!postcss!less' },
       { test: /\.(jpg|jpeg|gif|png)$/i, loader: 'file' },
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
@@ -49,7 +53,8 @@ var config = {
   },
   postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ],
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({"name": "vendor"})
+    new webpack.optimize.CommonsChunkPlugin({"name": "vendor"}),
+    new ExtractTextPlugin((env === 'production' || env === 'staging') ? "[name]-[chunkhash].css" : "[name].css")
   ]
 };
 

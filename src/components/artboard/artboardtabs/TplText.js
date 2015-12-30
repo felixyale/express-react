@@ -21,10 +21,10 @@ export default class TplText extends React.Component {
   }
 
   render() {
-    let createItem = (html, i) => {
+    let createItem = (item, i) => {
       return (
         <div className="tpl-item" key={i} onClick={this.handleSelect(i)}>
-          <div className="tpl-container" dangerouslySetInnerHTML={{__html: this.formatTemplate(html)}} />
+          <div className="tpl-container" dangerouslySetInnerHTML={{__html: this.formatTemplate(item.html)}} />
         </div>
       )
     }

@@ -19,8 +19,8 @@ export default class ArtBoardTabs extends React.Component {
     this.handleTabClick = this.handleTabClick.bind(this);
   }
   
-  addTpl(html) {
-    this.props.addTpl(html);
+  addTpl(tpl) {
+    this.props.addTpl(tpl);
   }
 
   handleTabClick(tab) {

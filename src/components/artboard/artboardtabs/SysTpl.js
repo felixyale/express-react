@@ -26,8 +26,8 @@ export default class SysTpl extends React.Component {
     this.handleTabClick = this.handleTabClick.bind(this);
   }
 
-  addTpl(html) {
-    this.props.addTpl(html);
+  addTpl(tpl) {
+    this.props.addTpl(tpl);
   }
 
   handleTabClick(tab) {
