@@ -30,7 +30,7 @@ export default class TplText extends React.Component {
     }
 
     return (
-      <div>
+      <div className="tpl-text">
         {this.items.map(((item, i) => createItem(item, i)))}
       </div>
     )

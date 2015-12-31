@@ -14,6 +14,7 @@ class BoardTemplate extends React.Component {
 
   handleChange(evt) {
     this.props.data.html = evt.target.value;
+    this.props.handleChange();
   }
 
   render() {
@@ -31,13 +32,11 @@ export default class Board extends React.Component {
     super(props);
 
     this.state = {
-      title: '',
-      description: '',
-      wxLogo: '',
-      items: this.props.tplItems,
+      tpl: this.props.tpl,
       activeTpl: {},
       activeTplLink: '',
-      modal: false
+      modal: false,
+      shouldUpdate: true
     };
 
     this.moveCard = this.moveCard.bind(this);
@@ -51,103 +50,108 @@ export default class Board extends React.Component {
     this.handleLinkChange = this.handleLinkChange.bind(this);
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    console.log('board componentWillUpdate');
+    this.props.saveState();
+  }
+
   handleTitleChange(e) {
-    this.setState({title: e.target.value});
-  }
-
-  handledDescriptionChange(e) {
-    this.setState({description: e.target.value});
-  }
-
-  moveCard(dragIndex, hoverIndex) {
-    const { items } = this.state;
-    const dragCard = items[dragIndex];
-
     this.setState(update(this.state, {
-      items: {
-        $splice: [
-          [dragIndex, 1],
-          [hoverIndex, 0, dragCard]
-        ]
+      tpl: {
+        title: {
+          $set: e.target.value
+        }
       }
     }));
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    console.log('update')
-    this.props.saveState();
+  handledDescriptionChange(e) {
+    this.setState(update(this.state, {
+      tpl: {
+        description: {
+          $set: e.target.value
+        }
+      }
+    }));
   }
 
-  handleRemove(id) {
+  moveCard(dragIndex, hoverIndex) {
+    const { items } = this.state.tpl;
+    const dragCard = items[dragIndex];
+
+    this.setState(update(this.state, {
+      tpl: {
+        items: {
+          $splice: [
+            [dragIndex, 1],
+            [hoverIndex, 0, dragCard]
+          ]
+        }
+      }
+    }));
+  }
+
+  handleRemove(index) {
     return () => {
-      var index = -1;
-      this.state.items.forEach((item, i) => {
-        if (item['id'] == id) {
-          index = i;
-          return false;
+      var state = update(this.state, {
+        tpl: {
+          items: {
+            $splice: [[index, 1]]
+          }
         }
       })
-      if (index > -1) {
-          this.state.items.splice(index, 1);
-      }
-      
-      index = -1;
-      this.props.tplItems.forEach((item, i) => {
-        if (item['id'] == id) {
-          index = i;
-          return false;
-        }
-      });
-      if (index > -1) {
-          this.props.tplItems.splice(index, 1);
-      }
 
-      this.setState(this.state);
+      this.props.tpl.items = state.tpl.items;
+
+      this.setState(state);
     }
   }
 
   handleLink(item) {
     return () => {
-      this.setState({
-        activeTpl: item,
-        activeTplLink: item.link,
-        modal: true
-      });
+      this.setState(update(this.state, {
+        $merge: {
+          activeTpl: item,
+          activeTplLink: item.link,
+          modal: true
+        }
+      }));
     }
   }
 
   handleLinkChange(e) {
-    this.setState({
-      activeTplLink: e.target.value
-    });
+    this.setState(update(this.state, {
+      activeTplLink: {
+        $set: e.target.value
+      }
+    }));
   }
 
   hideModal() {
-    this.setState({
-      modal: false
-    });
+    this.setState(update(this.state, {
+      modal: {
+        $set: false
+      }
+    }));
   }
 
   handleOk() {
     if (this.state.activeTpl) {
-      this.state.activeTpl.link = this.state.activeTplLink;
+      var itemIndex = -1;
+      this.state.tpl.items.forEach((item, index) => {
+        if (item.id == this.state.activeTpl.id) {
+          item.link = this.state.activeTplLink;
+          return false;
+        }
+      });
+      this.state.modal = false;
       this.setState(this.state);
-      this.hideModal();
     }
   }
 
   render() {
-    // add new template form menu
-    if (this.props.tplItems.length > this.state.items.length) {
-      this.props.tplItems.forEach((item, index) => {
-        if (index >= this.state.items.length) {
-          this.state.items.push(item);
-        }
-      })
-    }
-
     var style = {
-      display: this.state.items.length ? 'none' : 'block',
+      display: this.state.tpl.items.length ? 'none' : 'block',
       textAlign: 'center'
     }
 
@@ -175,13 +179,13 @@ export default class Board extends React.Component {
               className="form-control title"
               type="text"
               placeholder="标题"
-              value={this.state.title}
+              value={this.state.tpl.title}
               onChange={this.handleTitleChange} />
             <textarea
               className="form-control description"
               type="text"
               placeholder="微信分享描述"
-              value={this.state.description}
+              value={this.state.tpl.description}
               onChange={this.handledDescriptionChange} />
           </div>
         </div>
@@ -190,16 +194,16 @@ export default class Board extends React.Component {
           <div className="tpl-container" style={style}>
               <div>请在左边添加模版</div>
           </div>
-          {this.state.items.map((item, i) => {
+          {this.state.tpl.items.map((item, i) => {
             return (
               <Card
                 key={item.id}
                 index={i}
                 moveCard={this.moveCard}
-                handleRemove={this.handleRemove(item.id)}
+                handleRemove={this.handleRemove(i)}
                 handleLink={this.handleLink(item)}
                 config={item.config} >
-                <BoardTemplate data={item} />
+                <BoardTemplate data={item} handleChange={this.props.saveState} />
               </Card>
             );
           })}

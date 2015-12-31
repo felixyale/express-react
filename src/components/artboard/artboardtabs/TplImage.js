@@ -30,7 +30,7 @@ export default class TplImage extends React.Component {
     }
 
     return (
-      <div>
+      <div className="tpl-image">
         {this.items.map(((item, i) => createItem(item, i)))}
       </div>
     )

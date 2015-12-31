@@ -36,7 +36,12 @@ export class ArtBoard extends React.Component {
     super(props);
 
     this.state = {
-      tplItems: []
+      tpl: {
+        items: [],
+        title: '',
+        description: '',
+        wxLogo: ''
+      }
     };
 
     this.addTpl = this.addTpl.bind(this);
@@ -53,7 +58,7 @@ export class ArtBoard extends React.Component {
 
   componentWillUpdate(nextProps, nextState) {
     this.saveState();
-    console.log('update', nextState);
+    console.log('componentWillUpdate');
   }
 
   loadStateFromLocalStorage() {
@@ -62,7 +67,7 @@ export class ArtBoard extends React.Component {
     try {
       var storedState = JSON.parse(ls.getItem(key));
       if (storedState) {
-        this.state = storedState;
+        this.state.tpl = storedState;
       }
     } catch(e) {
       if (console) console.warn("Unable to load state from localStorage.");
@@ -78,17 +83,16 @@ export class ArtBoard extends React.Component {
     var key = this.getLocalStorageKey();
     console.log('saveState');
     setTimeout(() => {
-      this.state.tplItems = this.refs.board.state.items;
-      ls.setItem(key, JSON.stringify({
-        tplItems: this.refs.board.state.items
-      }));
+      this.state.tpl = this.refs.board.state.tpl;
+      var value = JSON.stringify(this.state.tpl);
+      ls.setItem(key, value);
     })
   }
 
   getTemplate() {
     setInterval(() => {
       let names = [];
-      this.refs.board.state.items.forEach((item, index) => {
+      this.refs.board.state.tpl.items.forEach((item, index) => {
         names.push(item.name + (item.link || '') + item.html);
       });
       console.log(names.join(','));
@@ -96,7 +100,7 @@ export class ArtBoard extends React.Component {
   }
 
   addTpl(tpl) {
-    this.refs.board.state.items.push(Object.assign({
+    this.refs.board.state.tpl.items.push(Object.assign({
       id: Date.now()
     }, tpl));
 
@@ -107,7 +111,7 @@ export class ArtBoard extends React.Component {
     return (
       <div className="artboard">
         <ArtBoardTabs addTpl={this.addTpl} />
-        <Board ref="board" tplItems={this.state.tplItems} saveState={this.saveState} />
+        <Board ref="board" tpl={this.state.tpl} saveState={this.saveState} />
         <ToolBar />
       </div>
     )
