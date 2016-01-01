@@ -1,5 +1,6 @@
 import { Router, Route, IndexRoute, Redirect, Link, browserHistory } from 'react-router'
 import React from 'react'
+import update from 'react/lib/update';
 
 import { TextTpl } from '../templates/Templates'
 
@@ -16,7 +17,11 @@ export default class TplText extends React.Component {
   
   handleSelect(index) {
     return () => {
-      this.props.addTpl(this.items[index]);
+      this.props.addTpl(update(this.items[index], {
+        $merge: {
+          type: 'text'
+        }
+      }));
     }
   }
 

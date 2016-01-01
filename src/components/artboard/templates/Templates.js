@@ -1,3 +1,6 @@
+require('../../../image01.jpg');
+require('../../../image02.jpg');
+
 export var TextTpl = [{
   config: {
     linkAble: false
@@ -96,7 +99,7 @@ export var TextTpl = [{
   },
   name: '标题3',
   html: `
-    <p contenteditable="true" style="line-height: 1.5rem;">文本内容</p>
+    <div contenteditable="true" style="line-height: 1.2em;padding: .5em 0;">文本内容</div>
   `    
 }, {
   config: {
@@ -104,7 +107,7 @@ export var TextTpl = [{
   },
   name: 'link1',
   html: `
-    <p contenteditable="true" style="line-height: 1.5rem;"><a href="#">link</a></p>
+    <div contenteditable="true" style="line-height: 1.2em;;padding: .5em 0;"><a href="#">link</a></div>
   `    
 }];
 
@@ -112,8 +115,18 @@ export var ImageTpl = [{
   config: {
     linkAble: true
   },
-  name: '图片1',
-  html: `
-    <img class="img-block" src="http://localhost:8080/esf/react/17a2a5262b6d7cfe05019dd5f1f3a4b3.png"/>
-  `
+  name: '图片4',
+  url: "http://localhost:8080/esf/react/17a2a5262b6d7cfe05019dd5f1f3a4b3.png"
+}, {
+  config: {
+    linkAble: true
+  },
+  name: '图片4',
+  url: "http://localhost:8080/esf/react/d3d788ecbb923486048c1286511b5cec.jpg"
+}, {
+  config: {
+    linkAble: true
+  },
+  name: '图片4',
+  url: "http://localhost:8080/esf/react/bb6d1fcd76596e99944d23da6ddf74c4.jpg"
 }];

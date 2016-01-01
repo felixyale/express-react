@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server -d --colors --hot --inline --content-base assets/",
-    "serve": "node index.js",
+    "serve": "nodemon index.js",
     "start": "npm run serve | npm run dev",
     "deploy": "rm -rf dist && NODE_ENV=production webpack -p"
   },
@@ -14,11 +14,14 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.13.3",
+    "express-redis-cache": "^0.2.0",
     "history": "^1.17.0",
     "jade": "^1.11.0",
+    "multer": "^1.1.0",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
-    "react-router": "^1.0.2"
+    "react-router": "^1.0.2",
+    "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.2.1",

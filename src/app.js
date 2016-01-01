@@ -26,9 +26,9 @@ class App extends React.Component {
         <header className="header">
           <nav className="navbar">
             <ul className="nav">
-              <li className="item"><Link to="/">首页</Link> ／</li>
-              <li className="item"><Link to="/my">我的H5</Link> ／</li>
-              <li className="item"><Link to="/artboard">制作H5</Link></li>
+              <li className="item"><Link to="/artboard">首页</Link> ／</li>
+              <li className="item"><Link to="/artboard/my">我的H5</Link> ／</li>
+              <li className="item"><Link to="/artboard/new">制作H5</Link></li>
             </ul>
           </nav>
         </header>
@@ -44,11 +44,11 @@ class App extends React.Component {
 
 ReactDom.render((
   <Router history={createBrowserHistory()}>
-    <Route path="/" component={App}>
+    <Route path="/artboard" component={App}>
       {/* Show the dashboard at / */}
       <IndexRoute component={Dashboard} />
-      <Route path="artboard" component={ArtBoard} />
-      <Route path="artboard/:id" component={ArtBoard} />
+      <Route path="new" component={ArtBoard} />
+      <Route path="edit/:id" component={ArtBoard} />
       {/*
       <Route path="about" component={About} />
       <Route path="inbox" component={Inbox}>

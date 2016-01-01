@@ -51,7 +51,6 @@ export default class Board extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    console.log('board componentWillUpdate');
     this.props.saveState();
   }
 
@@ -155,6 +154,22 @@ export default class Board extends React.Component {
       textAlign: 'center'
     }
 
+    var createTemplate = (item) => {
+      if (item.type === 'image') {
+        return (
+          <img className="img-block" src={item.url} />
+        )
+      } else if (item.type == 'text') {
+        return (
+          <BoardTemplate data={item} handleChange={this.props.saveState} />
+        )
+      } else {
+        return (
+          <div />
+        )
+      }
+    }
+
     return (
       <div className="board">
         <Modal
@@ -203,7 +218,7 @@ export default class Board extends React.Component {
                 handleRemove={this.handleRemove(i)}
                 handleLink={this.handleLink(item)}
                 config={item.config} >
-                <BoardTemplate data={item} handleChange={this.props.saveState} />
+                {createTemplate(item)}
               </Card>
             );
           })}

@@ -1,7 +1,11 @@
 var express = require('express');
 var app = express();
 var env = process.env.NODE_ENV || 'development';
+var router = require('./routers');
 require('./libs/jadeHelper').init(app);
+
+var favicon = require('serve-favicon');
+app.use(favicon(__dirname + '/src/favicon.ico'));
 
 app.use(express.static('dist'));
 
@@ -12,9 +16,7 @@ if (env != 'production' && env != 'staging') {
   app.locals.pretty = true;
 }
 
-app.get('*', function (req, res){
-  res.render('index', { title: 'Hey', message: 'Hello there!'});
-})
+router(app);
 
 var server = app.listen(3000, function () {
   var host = server.address().address;
