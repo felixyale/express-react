@@ -1,7 +1,7 @@
-import { Router, Route, IndexRoute, Redirect, Link, browserHistory } from 'react-router'
 import React from 'react'
-import update from 'react/lib/update';
+import update from 'react/lib/update'
 import $ from 'jquery'
+import Dropzone from 'react-dropzone'
 import { ImageTpl } from '../templates/Templates'
 
 const style = {
@@ -13,9 +13,11 @@ export default class TplImage extends React.Component {
     super();
 
     this.state = {
-      myphotos: []
+      myphotos: [],
+      files: []
     }
     this.items = ImageTpl;
+    this.onAddFile = this.onAddFile.bind(this);
   }
 
   componentDidMount() {
@@ -62,6 +64,12 @@ export default class TplImage extends React.Component {
   uploadImage() {
     console.log('upload image');
   }
+  
+  onAddFile(files) {
+    this.setState({
+      files: files
+    });
+  }
 
   render() {
     let createItem = (item, i) => {
@@ -82,19 +90,36 @@ export default class TplImage extends React.Component {
       <div>
         <div className="tpl-image">
           <div className="legend">我的图片</div>
-          <div className="tpl-item square-box" onClick={this.uploadImage}>
+          <div className="tpl-item square-box">
             <div className="square-content">
               <div className="square-table">
-                <div className="square-body">
-                  <form action="/data/upload" encType="multipart/form-data" method="POST">
-                    <input type="file" name="photos" style={{width: 100}} />
-                    <button type="submit">upload</button>
-                    <i className="fa fa-plus"></i>
-                  </form>
-                </div>
+                <Dropzone className="square-body dropzone" activeClassName="active" onDrop={this.onAddFile}>
+                  <i className="fa fa-plus"></i>
+                </Dropzone>
+                {/*<form action="/data/upload" encType="multipart/form-data" method="POST">
+                  <input type="file" name="photos" style={{width: 100}} />
+                  <button type="submit">upload</button>
+                  <i className="fa fa-plus"></i>
+                </form>*/}
               </div>
             </div>
           </div>
+      
+          {this.state.files.length > 0 ? this.state.files.map((file, i) => {
+            return (
+              <div className="tpl-item square-box" key={i} onClick={this.handleSelect(file)}>
+                <div className="square-content">
+                  <div className="square-table">
+                    <div className="square-body">
+                      <div>
+                        <img className="img-block" src={file.preview} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
+          }) : null}
 
           {this.state.myphotos.map((item, i) => {
             return (
@@ -102,7 +127,9 @@ export default class TplImage extends React.Component {
                 <div className="square-content">
                   <div className="square-table">
                     <div className="square-body">
-                      <img className="img-block" src={'http://fs.fangdd.com/thumb/100s100' + item} />
+                      <div>
+                        <img className="img-block" src={'http://fs.fangdd.com/thumb/100s100' + item} />
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -85,6 +85,7 @@
     left: 110px;
     bottom: 15px;
     border-radius: 5px;
+    overflow: auto;
   }
 
   .tabs-sys {
@@ -374,5 +375,13 @@
   .fa-plus {
     font-size: 4em;
     color: lighten(@base, 20%);
+  }
+
+  .dropzone {
+    border: 2px dashed @base;
+
+    &.active {
+      border: 2px dashed lighten(@base, 20%);
+    }
   }
 }

@@ -207,7 +207,7 @@ export default class Board extends React.Component {
 
         <div className="h5-container">
           <div className="tpl-container" style={style}>
-              <div>请在左边添加模版</div>
+              <div>&#9756;请在左边添加模版</div>
           </div>
           {this.state.tpl.items.map((item, i) => {
             return (

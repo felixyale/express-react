@@ -43,6 +43,7 @@
     "react-contenteditable": "^1.0.1",
     "react-dnd": "^2.0.2",
     "react-dnd-html5-backend": "^2.0.0",
+    "react-dropzone": "^3.3.0",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.9",
