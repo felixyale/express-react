@@ -3,7 +3,7 @@ var env = process.env.NODE_ENV || 'development';
 var helpers = {
   script: function(file) {
     if (env === 'development') {
-      return 'http://localhost:8080/esf/react/' + file + '.js';
+      return 'http://localhost:3001/esf/react/' + file + '.js';
     } else {
       var manifest = require('./manifest.json');
       return 'http://static.esf.fangdd.com/esf/react/' + manifest[file][0];
@@ -12,7 +12,7 @@ var helpers = {
 
   css: function(file) {
     if (env === 'development') {
-      return 'http://localhost:8080/esf/react/' + file + '.css';
+      return 'http://localhost:3001/esf/react/' + file + '.css';
     } else {
       var manifest = require('./manifest.json');
       return 'http://static.esf.fangdd.com/esf/react/' + manifest[file][1];

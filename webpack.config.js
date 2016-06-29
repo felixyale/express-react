@@ -21,7 +21,7 @@ var config = {
     ]
   },
   output: {
-    publicPath: (env === 'production' || env === 'staging') ? '/esf/react/' : 'http://localhost:8080/esf/react/',
+    publicPath: (env === 'production' || env === 'staging') ? '/esf/react/' : 'http://localhost:3001/esf/react/',
     path: path.resolve(__dirname, './dist/static.esf.fangdd.com/esf/react'),
     filename: (env === 'production' || env === 'staging') ? "[name]-[chunkhash].js" : "[name].js",
     chunkFilename: (env === 'production' || env === 'staging') ? "[name]-[chunkhash].js" : "[name].js"
@@ -55,7 +55,11 @@ var config = {
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({"name": "vendor"}),
     new ExtractTextPlugin((env === 'production' || env === 'staging') ? "[name]-[chunkhash].css" : "[name].css")
-  ]
+  ],
+  devServer: {
+    host: '0.0.0.0',
+    port: 3001
+  }
 };
 
 // generate manifest.json
@@ -69,7 +73,5 @@ if (env == 'production' || env == 'staging') {
     });
   });
 }
-
-config.addVendor('jquery', path.resolve(bower_dir, 'jquery/dist/jquery.min.js'));
 
 module.exports = config;

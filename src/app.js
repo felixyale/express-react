@@ -3,12 +3,11 @@ require("font-awesome.css");
 require("./app.less");
 
 // using an ES6 transpiler, like babel
-import { Router, Route, IndexRoute, Redirect, Link, browserHistory } from 'react-router'
-import ReactDom from 'react-dom'
-import React from 'react'
-import createBrowserHistory from 'createBrowserHistory'
+import { Router, Route, IndexRoute, Redirect, Link, browserHistory } from 'react-router';
+import ReactDom from 'react-dom';
+import React from 'react';
 
-import ArtBoard from './routes/ArtBoard'
+import ArtBoard from './routes/ArtBoard';
 
 class Dashboard extends React.Component {
   render() {
@@ -43,7 +42,7 @@ class App extends React.Component {
 }
 
 ReactDom.render((
-  <Router history={createBrowserHistory()}>
+  <Router history={browserHistory}>
     <Route path="/artboard" component={App}>
       {/* Show the dashboard at / */}
       <IndexRoute component={Dashboard} />

@@ -1,14 +1,14 @@
 {
-  "extends": "rackt",
-  "globals": {
-    "__DEV__": true
-  },
+  "extends": "airbnb",
   "rules": {
-    "react/jsx-uses-react": 1,
-    "react/jsx-no-undef": 2,
-    "react/wrap-multilines": 2
-  },
-  "plugins": [
-    "react"
-  ]
+    "comma-dangle": [2, "never"],
+    "no-param-reassign": [2, { "props": false }],
+    "prefer-const": 0,
+    "no-var": 0,
+    "prefer-arrow-callback": 0,
+    "func-names": 0,
+    "space-before-function-paren": [2, "never"],
+    "no-console": 0,
+    "object-shorthand": 0
+  }
 }
