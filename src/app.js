@@ -1,12 +1,10 @@
-require("normalize.css");
-require("font-awesome.css");
-require("./app.less");
+require('normalize.css');
+require('./app.less');
 
 // using an ES6 transpiler, like babel
 import { Router, Route, IndexRoute, Redirect, Link, browserHistory } from 'react-router';
 import ReactDom from 'react-dom';
 import React from 'react';
-
 import ArtBoard from './routes/ArtBoard';
 
 class Dashboard extends React.Component {
